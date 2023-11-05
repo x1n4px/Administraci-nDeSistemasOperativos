@@ -1,0 +1,17 @@
+$TTL 86400
+@	IN	SOA	feria.fuengirola.admin.feria.fuengirola.	(
+				2023102101; Serial
+				3600;	Refresh
+				1800;	Retry
+				604800;	Expire
+				86400;	Minimum TTL
+			)
+
+@	IN	NS	feria.fuengirola.
+@	IN	A	10.0.2.1;	
+caseta2	IN	A	10.0.2.16
+caseta1	IN	A	10.0.2.15
+
+; Alias
+juventud	IN	CNAME	caseta2.feria.fuengirola.
+boliches	IN	CNAME	caseta1.feria.fuengirola.

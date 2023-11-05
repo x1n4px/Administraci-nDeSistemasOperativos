@@ -1,0 +1,6 @@
+Package: myapp
+Version: 1.0
+Architecture: amd64
+Depends: hwinfo
+Maintainer: Ignacio Fdez
+Description: Administracion de Sistemas Operativos

@@ -1,0 +1,18 @@
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/ubuntu-vg/ubuntu-lv during curtin installation
+/dev/disk/by-id/dm-uuid-LVM-h4usDHOpB2q2CzQDkOKosgypykYI4qqNHhMsNSNTmuW5vojcdm3mYSRwWgHdAn0F / ext4 defaults 0 1
+# /boot was on /dev/sda2 during curtin installation
+/dev/disk/by-uuid/ee94b8aa-7d0a-4c29-8074-01adcd85c138 /boot ext4 defaults 0 1
+# /var was on /dev/ubuntu-vg/var during curtin installation
+/dev/disk/by-id/dm-uuid-LVM-h4usDHOpB2q2CzQDkOKosgypykYI4qqNpUfoeZJ2N6BXnPxk2pdYGMNn4uKzlfZN /var ext4 defaults 0 1
+# /home was on /dev/ubuntu-vg/home during curtin installation
+/dev/disk/by-id/dm-uuid-LVM-h4usDHOpB2q2CzQDkOKosgypykYI4qqNGmYgYfFkoc0BV1YzmHNFxq4sDT0gK5sG /home ext4 defaults 0 1
+# /tmp was on /dev/ubuntu-vg/tmp during curtin installation
+/dev/disk/by-id/dm-uuid-LVM-h4usDHOpB2q2CzQDkOKosgypykYI4qqNUxnvFlneANXIfUxhJDwnLvebUNXmXhKX /tmp ext4 defaults 0 1
+/swap.img	none	swap	sw	0	0

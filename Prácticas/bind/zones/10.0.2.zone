@@ -1,0 +1,12 @@
+$TTL 86400
+@	IN	SOA	feria.fuengirola.admin.feria.fuengirola.	(
+			2023102101; Serial
+			3600;	Refresh
+			1800;	Retry
+			604800;	Expire
+			86400;	Minimum TTL
+		)
+
+@	IN	NS	feria.fuengirola.
+15	IN	PTR	boliches.feria.fuengirola.
+16	IN	PTR	juventud.feria.fuengirola.

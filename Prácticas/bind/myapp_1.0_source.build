@@ -1,0 +1,3 @@
+ dpkg-buildpackage -us -uc -ui -S -sa
+dpkg-buildpackage: warning:     debian/changelog(l5): found end of file where expected start of change data
+dpkg-buildpackage: error: syntax error in debian/control at line 6: first block lacks a Source field
