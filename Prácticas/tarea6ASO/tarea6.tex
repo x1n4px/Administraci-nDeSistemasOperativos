@@ -148,6 +148,7 @@ Verificamos de igual forma, si Dovecot funciona:
 \begin{lstlisting}[frame=single]
 telnet localhost 110
 \end{lstlisting}
+
 \begin{center}
 \includegraphics[scale=0.6]{img/img5.png} 
 \end{center}
@@ -187,16 +188,73 @@ flush privileges;
 \subsection{Configuración de RoundCube}
 \lstset{language=Bash, breaklines=true, basicstyle=\footnotesize}
 \begin{lstlisting}[frame=single]
-sudo cp /etc/roundcube/config.inc.php /etc/roundcube/config.inc.php.bak
-sudo nano /etc/roundcube/config.inc.php
+wget https://github.com/roundcube/roundcubemail/releases/download/1.4.9/roundcubemail-1.4.9- complete.tar.gz
 \end{lstlisting}
 
-Añadimos dentro del fichero de configuración:
-
+Descomprimir el fichero en /var/www:
+\lstset{language=Bash, breaklines=true, basicstyle=\footnotesize}
 \begin{lstlisting}[frame=single]
-$config['db_dsnw'] = 'mysql://roundcube_user:user@localhost/roundcubemail';
+sudo tar -xvf roundcubemail-1.4.9-complete.tar.gz -C /var/www
 \end{lstlisting}
 
+Renombramos la carpeta a "roundcube":
+\lstset{language=Bash, breaklines=true, basicstyle=\footnotesize}
+\begin{lstlisting}[frame=single]
+cd /var/www
+sudo mv roundcubemail-1.4.9 roundcube
+\end{lstlisting}
+
+Cambiamos el propietario
+\lstset{language=Bash, breaklines=true, basicstyle=\footnotesize}
+\begin{lstlisting}[frame=single]
+chown -R www-data:www-data roundcube
+\end{lstlisting}
+
+Cambiamos los permisos de la carpeta:
+\lstset{language=Bash, breaklines=true, basicstyle=\footnotesize}
+\begin{lstlisting}[frame=single]
+sudo chmod 775 -R roundcube/logs roundcube/temp
+\end{lstlisting}
+En la carpeta sites-available de Apache, crear un fichero roundcube.conf y configurarlo, por ejemplo, de la siguiente manera:
+\lstset{language=Bash, breaklines=true, basicstyle=\footnotesize}
+\begin{lstlisting}[frame=single]
+<VirtualHost *:80>
+	ServerName correo.ejemplo.uma
+	ServerAdmin admin@ejemplo.uma
+	DocumentRoot /var/www/roundcube
+</VirtualHost> 
+\end{lstlisting}
+
+Habilitamos el nuevo sitio y el módulo rewrite
+\lstset{language=Bash, breaklines=true, basicstyle=\footnotesize}
+\begin{lstlisting}[frame=single]
+sudo a2ensite roundcube
+sudo a2enmod rewrite
+sudo systemctl restart apache2
+\end{lstlisting}
+Vamos a configurar mysql
+\lstset{language=Bash, breaklines=true, basicstyle=\footnotesize}
+\begin{lstlisting}[frame=single]
+create database roundcubemail
+create user 'roundcube'@ 'localhost' identified by 'claveroundcube';
+grant all privileges on roundcubemail.* to 'roundcube'@'localhost';
+flush privileges;
+\end{lstlisting}
+
+\begin{center}
+\includegraphics[scale=0.4]{img/Screenshot from 2023-11-20 19-20-42.png} 
+\end{center}
+
+Añadimos la información necesaria a la base de datos de roundcube
+\lstset{language=Bash, breaklines=true, basicstyle=\footnotesize}
+\begin{lstlisting}[frame=single]
+sudo mysql roundcubemail < /var/www/roundcube/SQL/mysql.initial.sql
+\end{lstlisting}
+
+\begin{center}
+\includegraphics[scale=0.5]{img/img7.png} 
+\includegraphics[scale=0.5]{img/img8.png} 
+\end{center}
 
 
 
